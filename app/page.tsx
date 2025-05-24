@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Check, X, SkipForward } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Check, X, SkipForward, RotateCcw } from 'lucide-react'
 
 interface TabooCard {
   guess_word: string
@@ -16,6 +16,18 @@ export default function TabooGame() {
   const [errors, setErrors] = useState(0)
   const [skipped, setSkipped] = useState(0)
   const [loading, setLoading] = useState(true)
+  
+  // Pull-to-refresh state
+  const [pullDistance, setPullDistance] = useState(0)
+  const [isPulling, setIsPulling] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const touchStartY = useRef(0)
+  const touchCurrentY = useRef(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Pull-to-refresh constants
+  const PULL_THRESHOLD = 80
+  const MAX_PULL_DISTANCE = 120
 
   // Load cards from data and start immediately
   useEffect(() => {
@@ -61,6 +73,75 @@ export default function TabooGame() {
     }
     loadCards()
   }, [])
+
+  // Pull-to-refresh touch handlers
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isRefreshing) return
+      touchStartY.current = e.touches[0].clientY
+      touchCurrentY.current = e.touches[0].clientY
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isRefreshing) return
+      
+      touchCurrentY.current = e.touches[0].clientY
+      const deltaY = touchCurrentY.current - touchStartY.current
+
+      // Only allow pull-to-refresh when starting from near the top and pulling down
+      if (touchStartY.current > 50 || deltaY <= 0) {
+        if (isPulling) {
+          setIsPulling(false)
+          setPullDistance(0)
+        }
+        return
+      }
+
+      // Calculate pull distance with resistance
+      const pullDistance = Math.min(deltaY * 0.5, MAX_PULL_DISTANCE)
+      
+      if (pullDistance > 10) {
+        if (!isPulling) setIsPulling(true)
+        setPullDistance(pullDistance)
+        
+        // Prevent default scrolling behavior during pull
+        e.preventDefault()
+      }
+    }
+
+    const handleTouchEnd = () => {
+      if (isRefreshing) return
+      
+      if (isPulling && pullDistance >= PULL_THRESHOLD) {
+        // Trigger refresh
+        setIsRefreshing(true)
+        
+        // Add a small delay for UX, then reload
+        setTimeout(() => {
+          window.location.reload()
+        }, 300)
+      } else {
+        // Reset pull state
+        setIsPulling(false)
+        setPullDistance(0)
+      }
+    }
+
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('touchstart', handleTouchStart, { passive: true })
+      container.addEventListener('touchmove', handleTouchMove, { passive: false })
+      container.addEventListener('touchend', handleTouchEnd, { passive: true })
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('touchstart', handleTouchStart)
+        container.removeEventListener('touchmove', handleTouchMove)
+        container.removeEventListener('touchend', handleTouchEnd)
+      }
+    }
+  }, [isPulling, pullDistance, isRefreshing])
 
   const getRandomCard = () => {
     if (cards.length === 0) return null
@@ -110,7 +191,32 @@ export default function TabooGame() {
 
   return (
     <main className="main">
-      <div className="container">
+      {/* Pull-to-refresh indicator */}
+      {(isPulling || isRefreshing) && (
+        <div 
+          className="pull-refresh-indicator"
+          style={{
+            transform: `translateY(${Math.max(0, pullDistance - 20)}px)`,
+            opacity: Math.min(pullDistance / PULL_THRESHOLD, 1)
+          }}
+        >
+          <div className={`pull-icon ${isRefreshing ? 'refreshing' : ''}`}>
+            <RotateCcw size={24} />
+          </div>
+          <div className="pull-text">
+            {isRefreshing ? 'Refreshing...' : pullDistance >= PULL_THRESHOLD ? 'Release to refresh' : 'Pull to refresh'}
+          </div>
+        </div>
+      )}
+
+      <div 
+        ref={containerRef}
+        className="container"
+        style={{
+          transform: isPulling ? `translateY(${Math.min(pullDistance * 0.3, 30)}px)` : 'translateY(0)',
+          transition: isPulling ? 'none' : 'transform 0.3s ease-out'
+        }}
+      >
         <div className="game-header">
           <div className="score-board">
             <span className="score">
