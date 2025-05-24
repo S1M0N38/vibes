@@ -21,12 +21,31 @@ export default function TabooGame() {
   useEffect(() => {
     const loadCards = async () => {
       try {
-        const response = await fetch('/data/cards.eng.jsonl')
+        // Handle base path for static exports (like GitHub Pages)
+        const basePath = process.env.NODE_ENV === 'production' 
+          ? (process.env.NEXT_PUBLIC_BASE_PATH || '') 
+          : ''
+        const dataUrl = `${basePath}/data/cards.eng.jsonl`
+        
+        const response = await fetch(dataUrl)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch cards: ${response.status}`)
+        }
+        
         const text = await response.text()
+        if (!text.trim()) {
+          throw new Error('Empty data file')
+        }
+        
         const cardData = text
           .trim()
           .split('\n')
           .map(line => JSON.parse(line))
+          
+        if (cardData.length === 0) {
+          throw new Error('No valid cards found')
+        }
+          
         setCards(cardData)
         
         // Start with a random card immediately
