@@ -5,13 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:github": "GITHUB_PAGES=true next build && node scripts/prepare-github-pages.js",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export",
     "generate-icons": "node scripts/generate-icons.js",
     "test-pwa": "node scripts/test-pwa.js",
-    "prepare-github": "node scripts/prepare-github-pages.js",
     "serve": "npx serve@latest out",
     "test-local": "npm run build && npm run serve"
   },
