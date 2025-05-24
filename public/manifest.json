@@ -8,6 +8,22 @@
   "background_color": "#4F46E5",
   "theme_color": "#4F46E5",
   "orientation": "any",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "route_to": "focus-existing"
+  },
+  "handle_links": "preferred",
+  "capture_links": "existing-client-navigate",
+  "protocol_handlers": [
+    {
+      "protocol": "web+vibes",
+      "url": "/?protocol=%s"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/icon-72x72.svg",
@@ -60,8 +76,6 @@
   ],
   "categories": ["lifestyle", "entertainment"],
   "lang": "en",
-  "scope": "/",
-  "prefer_related_applications": false,
   "shortcuts": [
     {
       "name": "Home",

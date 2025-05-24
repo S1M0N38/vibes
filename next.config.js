@@ -12,17 +12,41 @@ if (!isStaticExport) {
   // Development and local production with PWA
   const withPWA = require('next-pwa')({
     dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
+    disable: false, // Enable PWA in development for native app testing
     register: true,
     skipWaiting: true,
+    sw: '/sw.js',
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
-        handler: 'NetworkFirst',
+        handler: 'StaleWhileRevalidate',
         options: {
-          cacheName: 'offlineCache',
+          cacheName: 'pages-cache',
           expiration: {
             maxEntries: 200,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          },
+        },
+      },
+      {
+        urlPattern: /\.(js|css|html)$/,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'static-cache',
+          expiration: {
+            maxEntries: 100,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+          },
+        },
+      },
+      {
+        urlPattern: /\.(png|jpg|jpeg|svg|gif|webp|avif)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'images-cache',
+          expiration: {
+            maxEntries: 100,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
           },
         },
       },
