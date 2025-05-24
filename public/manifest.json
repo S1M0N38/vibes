@@ -1,29 +1,13 @@
 {
-  "name": "Vibes - Feel the Energy",
+  "name": "Vibes - Minimal PWA",
   "short_name": "Vibes",
-  "description": "A simple and beautiful website showcasing good vibes",
+  "description": "A minimal, bi-color PWA with good vibes",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["standalone", "fullscreen", "minimal-ui"],
-  "background_color": "#4F46E5",
-  "theme_color": "#4F46E5",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
   "orientation": "any",
   "scope": "/",
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
-  "launch_handler": {
-    "route_to": "focus-existing"
-  },
-  "handle_links": "preferred",
-  "capture_links": "existing-client-navigate",
-  "protocol_handlers": [
-    {
-      "protocol": "web+vibes",
-      "url": "/?protocol=%s"
-    }
-  ],
   "icons": [
     {
       "src": "/icons/icon-72x72.svg",
@@ -74,34 +58,6 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["lifestyle", "entertainment"],
-  "lang": "en",
-  "shortcuts": [
-    {
-      "name": "Home",
-      "short_name": "Home",
-      "description": "Go to the home page",
-      "url": "/",
-      "icons": [
-        {
-          "src": "/icons/icon-192x192.svg",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "About",
-      "short_name": "About",
-      "description": "Learn more about Vibes",
-      "url": "/about",
-      "icons": [
-        {
-          "src": "/icons/icon-192x192.svg",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    }
-  ]
+  "categories": ["lifestyle"],
+  "lang": "en"
 } 

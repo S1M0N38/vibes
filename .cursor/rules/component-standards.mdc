@@ -3,17 +3,23 @@ description:
 globs: 
 alwaysApply: false
 ---
-# React Component Standards
+# Minimal PWA Component Standards
+
+## Philosophy
+- **Minimal**: Keep components as simple as possible
+- **Functional**: Use only functional components
+- **Accessible**: Follow accessibility best practices
+- **Bi-color**: Support only black and white theming
 
 ## Component Structure
 - Use functional components with TypeScript
-- Define interfaces for all props at the top of the file
-- Use descriptive names for components and props
-- Keep components focused and single-purpose
+- Keep components minimal and single-purpose
+- Avoid unnecessary abstraction
+- Focus on essential functionality only
 
 ## Props and Types
 ```tsx
-interface ComponentNameProps {
+interface ComponentProps {
   title: string
   description?: string
   onClick?: () => void
@@ -21,49 +27,49 @@ interface ComponentNameProps {
 }
 ```
 
-## Component Template
+## Minimal Component Template
 ```tsx
-import React from 'react'
-
-interface ComponentNameProps {
-  // Define props here
+interface ComponentProps {
+  // Essential props only
 }
 
-export default function ComponentName({ 
+export default function Component({ 
   prop1, 
   prop2 
-}: ComponentNameProps) {
-  // Component logic here
+}: ComponentProps) {
+  // Minimal logic
   
   return (
-    <div>
-      {/* JSX content */}
+    <div className="simple-class">
+      {/* Semantic HTML */}
     </div>
   )
 }
 ```
 
 ## Best Practices
-- Use semantic HTML elements when possible
-- Implement proper accessibility attributes
-- Handle loading and error states appropriately
-- Use consistent naming conventions:
-  - PascalCase for component names
-  - camelCase for props and variables
-  - kebab-case for CSS classes
+- Use semantic HTML elements
+- Implement proper accessibility (ARIA labels, keyboard navigation)
+- Support both light and dark themes
+- Optimize for touch interactions (44px minimum touch targets)
+- Use consistent naming:
+  - PascalCase for components
+  - camelCase for props/variables
+  - Simple CSS class names
 
 ## State Management
-- Use useState for local component state
-- Consider useReducer for complex state logic
-- Keep state as close to where it's used as possible
-- Lift state up only when necessary
+- Use useState for simple local state
+- Keep state minimal and focused
+- Avoid complex state patterns for this minimal app
 
-## Event Handling
-- Use descriptive function names (handleClick, handleSubmit)
-- Prevent default behavior when necessary
-- Handle errors gracefully
+## Styling Approach
+- Use CSS custom properties from globals.css
+- Class names should be simple and descriptive
+- Support system theme preferences
+- Mobile-first responsive design
 
-## Styling
-- Use consistent class naming conventions
-- Keep styles close to components
-- Consider component composition over complex prop drilling
+## PWA Considerations
+- Support touch interactions
+- Respect prefers-reduced-motion
+- Handle offline states gracefully
+- Support safe area insets for mobile devices

@@ -3,59 +3,70 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Vibes Project Structure & Conventions
+# Vibes - Minimal PWA Project Structure
 
 ## Project Overview
-The Vibes project is a Next.js 14 application using the App Router, TypeScript, and focused on showcasing "good vibes" with a clean, simple interface.
+Vibes is a minimal, bi-color PWA built with Next.js 14, TypeScript, and modern CSS. The project focuses on simplicity, accessibility, and clean design using only black and white colors that adapt to system theme.
+
+## Project Philosophy
+- **Minimal**: Keep everything as simple as possible
+- **Bi-color**: Only use black (#000000) and white (#ffffff)
+- **Responsive**: Mobile-first, clean design
+- **Modern**: Use latest CSS features and clean typography
+- **PWA**: Proper progressive web app implementation
 
 ## Directory Structure
 ```
 vibes/
 ├── app/
-│   ├── layout.tsx          # Root layout with Navigation
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Global styles
-│   ├── components/         # Shared components
-│   │   └── Navigation.tsx  # Main navigation component
-│   └── about/              # About page route
+│   ├── layout.tsx          # Root layout with PWA metadata
+│   ├── page.tsx            # Minimal home page
+│   └── globals.css         # Bi-color theme with system support
+├── public/
+│   ├── manifest.json       # Simplified PWA manifest
+│   └── icons/              # SVG icons for PWA
 ├── .cursor/rules/          # Cursor AI rules
-└── package.json            # Dependencies and scripts
+└── package.json            # Minimal dependencies
 ```
 
 ## Key Project Files
-- [app/layout.tsx](mdc:app/layout.tsx) - Main layout with navigation and padding
-- [app/page.tsx](mdc:app/page.tsx) - Homepage content
-- [app/globals.css](mdc:app/globals.css) - Global styling
-- [package.json](mdc:package.json) - Project configuration
+- [app/layout.tsx](mdc:app/layout.tsx) - Essential PWA metadata and layout
+- [app/page.tsx](mdc:app/page.tsx) - Simple, interactive home page
+- [app/globals.css](mdc:app/globals.css) - Bi-color theme with system support
+- [public/manifest.json](mdc:public/manifest.json) - Simplified PWA manifest
+- [package.json](mdc:package.json) - Minimal dependencies
+
+## Design Guidelines
+- **Colors**: Only white (#ffffff) and black (#000000)
+- **Typography**: Inter font family with clean hierarchy
+- **Spacing**: CSS custom properties for consistency
+- **Animations**: Subtle transitions (respecting prefers-reduced-motion)
+- **Theme**: Automatic light/dark mode based on system preference
 
 ## Development Standards
 - **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript
-- **Styling**: CSS (no framework dependencies currently)
-- **Components**: Functional components with proper TypeScript interfaces
+- **Styling**: Modern CSS with custom properties
+- **Components**: Minimal, functional components
+- **PWA**: Proper manifest, meta tags, and offline support
 
-## Metadata Standards
-All pages should include proper metadata for SEO:
-```tsx
-export const metadata: Metadata = {
-  title: 'Page Title - Vibes',
-  description: 'Descriptive text about the page content',
-}
-```
+## CSS Approach
+- CSS custom properties for theming
+- System color scheme support (light/dark)
+- Mobile-first responsive design
+- Safe area support for mobile devices
+- Minimal animations with performance optimization
 
-## Navigation Structure
-- Main navigation is handled by the Navigation component
-- Layout includes 80px top padding to account for fixed navigation
-- Keep navigation consistent across all pages
-
-## Styling Approach
-- Global styles in `app/globals.css`
-- Inline styles used sparingly for layout adjustments
-- Focus on clean, minimal design that reflects "good vibes"
+## PWA Requirements
+- Proper manifest.json configuration
+- Essential meta tags for PWA installation
+- System theme color support
+- Touch-optimized interactions
+- Standalone display mode support
 
 ## Development Commands
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run export` - Build and export static site
+- `npm run test-local` - Build and serve locally

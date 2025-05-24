@@ -1,20 +1,18 @@
 {
-  "name": "vibes-website",
+  "name": "vibes-minimal-pwa",
   "version": "0.1.0",
   "private": true,
+  "description": "A minimal, bi-color PWA with good vibes",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-icons": "node scripts/generate-icons.js",
-    "test-pwa": "node scripts/test-pwa.js",
     "serve": "npx serve@latest out",
     "test-local": "npm run build && npm run serve"
   },
   "dependencies": {
     "next": "14.0.4",
-    "next-pwa": "^5.6.0",
     "react": "^18",
     "react-dom": "^18"
   },

@@ -3,53 +3,81 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Next.js App Router Development Standards
+# Next.js 14 Minimal PWA Development
 
-## File Organization
-- Use the `app/` directory for all routes and layouts
-- Keep components in `app/components/` directory
-- Each route should have its own directory with appropriate files:
-  - `page.tsx` for the main route component
-  - `layout.tsx` for shared layouts
-  - `loading.tsx` for loading states
-  - `error.tsx` for error boundaries
+## App Router Structure
+- Use `app/` directory for all routes and layouts
+- Keep file structure minimal and flat
+- Essential files only:
+  - `layout.tsx` for PWA metadata and basic layout
+  - `page.tsx` for the main application
+  - `globals.css` for bi-color theming
 
-## Component Standards
-- Use TypeScript for all components
-- Export components as default exports from pages
-- Use proper TypeScript interfaces for props
-- Include proper Metadata exports for SEO
-
-## Styling Approach
-- Use CSS modules or styled-components for component-specific styles
-- Global styles go in `app/globals.css`
-- Maintain consistent naming conventions
-
-## Performance Best Practices
+## Component Philosophy
+- Prioritize simplicity over complexity
 - Use Server Components by default
-- Add 'use client' directive only when client-side features are needed
-- Optimize images with next/image component
-- Implement proper loading states and error boundaries
+- Add 'use client' only when absolutely necessary
+- Avoid unnecessary file proliferation
 
-## Example Component Structure
+## PWA-Specific Implementation
+- Include proper PWA metadata in layout.tsx
+- Support system color scheme in viewport config
+- Ensure manifest.json is properly configured
+- Optimize for standalone display mode
+
+## Styling Standards
+- All styles in `app/globals.css`
+- Use CSS custom properties for theming
+- Support both light and dark system themes
+- Mobile-first responsive design
+- Safe area support for mobile devices
+
+## Performance & Accessibility
+- Minimize JavaScript bundle size
+- Respect prefers-reduced-motion
+- Implement proper touch targets (44px minimum)
+- Support keyboard navigation
+- Ensure proper color contrast in both themes
+
+## Example Minimal Layout
 ```tsx
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Page Title',
-  description: 'Page description',
+  title: 'App Title',
+  description: 'App description',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'App Title',
+  },
 }
 
-interface PageProps {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
+  colorScheme: 'light dark',
 }
 
-export default function Page({ params, searchParams }: PageProps) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <div>
-      <h1>Page Content</h1>
-    </div>
+    <html lang="en">
+      <body>{children}</body>
+    </html>
   )
 }
 ```
+
+## Development Commands
+- Focus on essential commands only
+- `npm run dev` for development
+- `npm run build` for production
+- `npm run test-local` for local testing
