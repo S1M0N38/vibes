@@ -105,7 +105,7 @@ body {
   color: var(--foreground);
   border: 2px solid var(--border);
   border-radius: 0.25rem;
-  padding: 1.25rem 1.5rem;
+  padding: 1.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -115,7 +115,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 48px; /* Minimum touch target size */
+  min-height: 64px; /* Minimum touch target size */
   /* Prevent text selection on touch */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -366,10 +366,10 @@ body {
   }
   
   .button {
-    padding: 0.875rem 0.75rem;
+    padding: 1.25rem 0.75rem;
     font-size: 0.9rem;
     /* Ensure buttons are properly sized */
-    min-height: 48px; /* Minimum touch target size */
+    min-height: 60px; /* Minimum touch target size */
     flex: 1;
   }
   
@@ -441,9 +441,9 @@ body {
   }
   
   .button {
-    padding: 0.75rem 0.5rem;
+    padding: 1rem 0.5rem;
     font-size: 0.85rem;
-    min-height: 44px;
+    min-height: 56px;
   }
   
   .button svg {
