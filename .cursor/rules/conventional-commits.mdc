@@ -1,5 +1,129 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Conventional Commits Style Guide
+
+This project follows the [Conventional Commits](mdc:https:/www.conventionalcommits.org) specification for all git commit messages.
+
+## Commit Message Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+## Types
+
+Use these standardized types for all commits:
+
+### Primary Types
+- **feat**: A new feature for the user
+- **fix**: A bug fix for the user
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **test**: Adding missing tests or correcting existing tests
+- **chore**: Changes to the build process or auxiliary tools and libraries
+
+### Extended Types
+- **perf**: A code change that improves performance
+- **ci**: Changes to CI configuration files and scripts
+- **build**: Changes that affect the build system or external dependencies
+- **revert**: Reverts a previous commit
+
+## Scope Guidelines
+
+Scopes should represent the area of the codebase affected:
+
+### For this Next.js project:
+- **app**: Changes to the app directory structure
+- **components**: UI component changes
+- **pages**: Page-specific changes  
+- **api**: API route changes
+- **config**: Configuration file changes
+- **deps**: Dependency updates
+- **styles**: Styling changes (CSS, Tailwind, etc.)
+
+## Examples
+
+### Good Commit Messages
+```
+feat(components): add user profile avatar component
+fix(api): resolve authentication token validation
+docs(readme): update installation instructions
+style(components): format code and fix indentation
+refactor(app): restructure routing logic
+test(components): add unit tests for button component
+chore(deps): update next.js to version 14.0.0
+perf(app): optimize image loading with lazy loading
+```
+
+### Breaking Changes
+For breaking changes, add `!` after the type/scope and include `BREAKING CHANGE:` in the footer:
+
+```
+feat(api)!: remove deprecated user endpoints
+
+BREAKING CHANGE: The /api/user/legacy endpoint has been removed. 
+Use /api/user/v2 instead.
+```
+
+### Multi-paragraph Body
+```
+fix(components): resolve button accessibility issues
+
+The primary button component was missing proper ARIA labels
+and keyboard navigation support. This commit adds:
+
+- aria-label attributes for screen readers
+- proper focus management
+- keyboard event handlers for Enter and Space keys
+
+Closes #123
+```
+
+## Rules to Follow
+
+1. **Use lowercase** for type, scope, and description
+2. **No period** at the end of the description
+3. **Imperative mood** in the description (e.g., "add" not "added" or "adds")
+4. **Description should be 50 characters or less**
+5. **Body should wrap at 72 characters**
+6. **Reference issues/PRs** in the footer when applicable
+
+## Tools Integration
+
+### Git Hooks
+Consider using commitizen or commitlint to enforce these standards:
+
+```bash
+npm install -g commitizen cz-conventional-changelog
+echo '{"path": "cz-conventional-changelog"}' > ~/.czrc
+```
+
+Then use `git cz` instead of `git commit` for guided commit creation.
+
+## Anti-patterns to Avoid
+
+❌ **Bad Examples:**
+```
+Update stuff
+Fixed bug
+WIP
+asdf
+Merge branch 'feature'
+```
+
+✅ **Good Examples:**
+```
+feat(auth): implement JWT token refresh
+fix(ui): resolve mobile navigation overlay issue
+docs(api): add authentication endpoint examples
+```
+
+Remember: Good commit messages help teammates understand changes quickly and maintain a clean project history.
