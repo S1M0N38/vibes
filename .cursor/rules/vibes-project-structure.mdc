@@ -3,37 +3,35 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Vibes - Minimal PWA Project Structure
+# Vibes - Minimal Web App Project Structure
 
 ## Project Overview
-Vibes is a minimal, bi-color PWA built with Next.js 14, TypeScript, and modern CSS. The project focuses on simplicity, accessibility, and clean design using only black and white colors that adapt to system theme.
+Vibes is a minimal, bi-color web app built with Next.js 14, TypeScript, and modern CSS. The project focuses on simplicity, accessibility, and clean design using only black and white colors that adapt to system theme.
 
 ## Project Philosophy
 - **Minimal**: Keep everything as simple as possible
 - **Bi-color**: Only use black (#000000) and white (#ffffff)
 - **Responsive**: Mobile-first, clean design
 - **Modern**: Use latest CSS features and clean typography
-- **PWA**: Proper progressive web app implementation
+- **Web-first**: Standard web app with modern browser features
 
 ## Directory Structure
 ```
 vibes/
 ├── app/
-│   ├── layout.tsx          # Root layout with PWA metadata
+│   ├── layout.tsx          # Root layout with basic metadata
 │   ├── page.tsx            # Minimal home page
 │   └── globals.css         # Bi-color theme with system support
 ├── public/
-│   ├── manifest.json       # Simplified PWA manifest
-│   └── icons/              # SVG icons for PWA
+│   └── data/               # Static data files
 ├── .cursor/rules/          # Cursor AI rules
 └── package.json            # Minimal dependencies
 ```
 
 ## Key Project Files
-- [app/layout.tsx](mdc:app/layout.tsx) - Essential PWA metadata and layout
+- [app/layout.tsx](mdc:app/layout.tsx) - Essential metadata and layout
 - [app/page.tsx](mdc:app/page.tsx) - Simple, interactive home page
 - [app/globals.css](mdc:app/globals.css) - Bi-color theme with system support
-- [public/manifest.json](mdc:public/manifest.json) - Simplified PWA manifest
 - [package.json](mdc:package.json) - Minimal dependencies
 
 ## Design Guidelines
@@ -48,7 +46,7 @@ vibes/
 - **Language**: TypeScript
 - **Styling**: Modern CSS with custom properties
 - **Components**: Minimal, functional components
-- **PWA**: Proper manifest, meta tags, and offline support
+- **Web Standards**: Modern browser features and responsive design
 
 ## CSS Approach
 - CSS custom properties for theming
@@ -57,12 +55,12 @@ vibes/
 - Safe area support for mobile devices
 - Minimal animations with performance optimization
 
-## PWA Requirements
-- Proper manifest.json configuration
-- Essential meta tags for PWA installation
+## Web App Features
 - System theme color support
+- Responsive design for all devices
 - Touch-optimized interactions
-- Standalone display mode support
+- Keyboard navigation support
+- Modern CSS features
 
 ## Development Commands
 - `npm run dev` - Start development server

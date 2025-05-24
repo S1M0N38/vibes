@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Minimal PWA Component Standards
+# Minimal Web App Component Standards
 
 ## Philosophy
 - **Minimal**: Keep components as simple as possible
@@ -68,8 +68,9 @@ export default function Component({
 - Support system theme preferences
 - Mobile-first responsive design
 
-## PWA Considerations
+## Web App Considerations
 - Support touch interactions
 - Respect prefers-reduced-motion
-- Handle offline states gracefully
+- Handle network states gracefully
 - Support safe area insets for mobile devices
+- Ensure keyboard navigation works properly

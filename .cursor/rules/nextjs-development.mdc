@@ -3,13 +3,13 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Next.js 14 Minimal PWA Development
+# Next.js 14 Minimal Web App Development
 
 ## App Router Structure
 - Use `app/` directory for all routes and layouts
 - Keep file structure minimal and flat
 - Essential files only:
-  - `layout.tsx` for PWA metadata and basic layout
+  - `layout.tsx` for basic metadata and layout
   - `page.tsx` for the main application
   - `globals.css` for bi-color theming
 
@@ -19,11 +19,11 @@ alwaysApply: false
 - Add 'use client' only when absolutely necessary
 - Avoid unnecessary file proliferation
 
-## PWA-Specific Implementation
-- Include proper PWA metadata in layout.tsx
+## Web App Implementation
+- Include proper metadata in layout.tsx
 - Support system color scheme in viewport config
-- Ensure manifest.json is properly configured
-- Optimize for standalone display mode
+- Ensure responsive design across all devices
+- Optimize for modern browser features
 
 ## Styling Standards
 - All styles in `app/globals.css`
@@ -47,12 +47,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'App Title',
   description: 'App description',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'App Title',
-  },
 }
 
 export const viewport: Viewport = {
