@@ -1,35 +1,23 @@
-# Taboo Game PWA
+# Vibes - Minimal Web App
 
-A minimal, mobile-first Progressive Web App for playing the classic Taboo word guessing game.
+A minimal, mobile-first web application built with Next.js, TypeScript, and modern CSS. Features a clean bi-color design that adapts to system theme preferences.
 
 ## Features
 
-- 🎯 Over 1,300 English taboo cards
-- 📱 Mobile-optimized, responsive design
-- 🎨 Clean, minimal interface
-- 🌙 Dark/light mode support
-- 📊 Score tracking (correct vs skipped)
-- 🚀 PWA support - install on your device
-- ⚡ Fast loading with offline support
+- 🎨 Minimal, bi-color design (black & white)
+- 📱 Mobile-first, responsive layout
+- 🌙 Automatic dark/light mode support
+- ⚡ Fast loading and modern web standards
+- 🎯 Clean, accessible interface
+- 📊 TypeScript for type safety
 
-## How to Play
+## Design Philosophy
 
-1. **Start the Game**: Click "Start Game" to begin
-2. **Describe the Word**: Help your team guess the word at the top of the card
-3. **Avoid Taboo Words**: Don't say any of the forbidden words listed in red
-4. **Score Points**: Click "✓ Correct" when your team guesses right
-5. **Skip if Needed**: Click "↷ Skip" if you want to move to the next card
-
-## Game Rules
-
-- One player describes the word while others guess
-- The describing player cannot use any of the taboo words
-- If a taboo word is said, the card should be skipped
-- Try to get as many correct guesses as possible!
-
-## Data Source
-
-The taboo cards are sourced from the [S1M0N38/tabu](https://github.com/S1M0N38/tabu) repository, which provides high-quality taboo game cards in multiple languages.
+- **Minimal**: Keep everything as simple as possible
+- **Bi-color**: Only use black (#000000) and white (#ffffff)
+- **Responsive**: Mobile-first, clean design
+- **Modern**: Use latest CSS features and clean typography
+- **Accessible**: Proper contrast and keyboard navigation
 
 ## Development
 
@@ -45,22 +33,39 @@ npm run build
 
 # Start production server
 npm start
+
+# Build and test locally
+npm run test-local
 ```
 
 ## Tech Stack
 
-- **Next.js 14** - React framework
-- **TypeScript** - Type safety
-- **PWA** - Progressive Web App capabilities
-- **Mobile-first** - Responsive design
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety and better DX
+- **Modern CSS** - Custom properties and system theme support
+- **Mobile-first** - Responsive design principles
 
-## PWA Features
+## Project Structure
 
-- Install as native app on mobile/desktop
-- Offline support for previously loaded content
-- Fast loading with service worker caching
-- Native app-like experience
+```
+vibes/
+├── app/
+│   ├── layout.tsx          # Root layout with basic metadata
+│   ├── page.tsx            # Main application page
+│   └── globals.css         # Bi-color theme with system support
+├── public/
+│   └── data/               # Static data files
+└── package.json            # Minimal dependencies
+```
+
+## CSS Features
+
+- CSS custom properties for theming
+- System color scheme support (light/dark)
+- Mobile-first responsive design
+- Safe area support for mobile devices
+- Minimal animations with performance optimization
 
 ---
 
-Built with ❤️ for taboo game enthusiasts! 
+Built with ❤️ for simplicity and good vibes! 
