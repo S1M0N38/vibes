@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Home() {
   return (
     <main>
@@ -9,9 +11,9 @@ export default function Home() {
             <a href="#features" className="cta-button">
               Explore the Vibes
             </a>
-            <a href="/about/" className="cta-button">
+            <Link href="/about" className="cta-button">
               Learn About Us
-            </a>
+            </Link>
           </div>
         </div>
       </section>

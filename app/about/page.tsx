@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function About() {
   return (
     <main>
@@ -48,9 +50,9 @@ export default function About() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-            <a href="/" className="cta-button">
+            <Link href="/" className="cta-button">
               Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,3 +1,7 @@
+'use client'
+
+import Link from 'next/link'
+
 export default function Navigation() {
   return (
     <nav style={{
@@ -16,34 +20,34 @@ export default function Navigation() {
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontSize: '1.5rem',
           fontWeight: 'bold',
           color: 'white',
           textDecoration: 'none'
         }}>
           Vibes ✨
-        </a>
+        </Link>
         <div style={{
           display: 'flex',
           gap: '2rem'
         }}>
-          <a href="/" style={{
+          <Link href="/" style={{
             color: 'white',
             textDecoration: 'none',
             fontWeight: '500',
             transition: 'opacity 0.3s ease'
           }}>
             Home
-          </a>
-          <a href="/about/" style={{
+          </Link>
+          <Link href="/about" style={{
             color: 'white',
             textDecoration: 'none',
             fontWeight: '500',
             transition: 'opacity 0.3s ease'
           }}>
             About
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
