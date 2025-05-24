@@ -1,8 +1,8 @@
 {
-  "name": "vibes-minimal-pwa",
+  "name": "vibes-minimal-app",
   "version": "0.1.0",
   "private": true,
-  "description": "A minimal, bi-color PWA with good vibes",
+  "description": "A minimal, bi-color web app with good vibes",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +14,6 @@
   "dependencies": {
     "lucide-react": "^0.511.0",
     "next": "14.0.4",
-    "next-pwa": "^5.6.0",
     "react": "^18",
     "react-dom": "^18"
   },
