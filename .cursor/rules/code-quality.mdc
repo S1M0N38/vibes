@@ -1,5 +1,66 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Code Quality Standards
+
+## TypeScript Best Practices
+- Use strict TypeScript settings from [tsconfig.json](mdc:tsconfig.json)
+- Explicitly type function parameters and return values
+- Use interfaces for object shapes and component props
+- Avoid `any` type - use proper typing or `unknown` if necessary
+- Use optional properties (`?`) appropriately
+
+## Code Organization
+- Import statements at the top, organized as:
+  1. React and Next.js imports
+  2. Third-party library imports
+  3. Local component imports
+  4. Type-only imports (use `import type`)
+
+```tsx
+import React from 'react'
+import type { Metadata } from 'next'
+import SomeLibrary from 'some-library'
+import LocalComponent from './LocalComponent'
+import type { SomeType } from './types'
+```
+
+## Function and Variable Naming
+- Use descriptive, meaningful names
+- Functions: `camelCase` (handleSubmit, calculateTotal)
+- Components: `PascalCase` (UserProfile, NavigationMenu)
+- Constants: `UPPER_CASE` (MAX_RETRIES, API_ENDPOINTS)
+- Variables: `camelCase` (userData, isLoading)
+
+## Error Handling
+- Always handle async operations with proper error catching
+- Provide meaningful error messages
+- Use try-catch blocks for async operations
+- Consider loading and error states in components
+
+## Performance Considerations
+- Prefer Server Components unless client interactivity is needed
+- Use React.memo() for expensive re-renders
+- Implement proper key props for lists
+- Optimize images and assets
+
+## Code Comments
+- Write comments for complex business logic
+- Document component props and their purposes
+- Explain "why" not "what" in comments
+- Keep comments up-to-date with code changes
+
+## Testing Considerations
+- Write testable code with clear inputs and outputs
+- Keep components pure when possible
+- Separate business logic from UI components
+- Use meaningful test descriptions
+
+## Accessibility
+- Use semantic HTML elements
+- Include proper ARIA labels when needed
+- Ensure keyboard navigation works
+- Maintain proper heading hierarchy
+- Test with screen readers when possible
