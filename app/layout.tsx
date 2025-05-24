@@ -4,18 +4,23 @@ import InstallPrompt from './components/InstallPrompt'
 import TouchGestures from './components/TouchGestures'
 import './globals.css'
 
+// Conditional manifest path for GitHub Pages
+const manifestPath = process.env.GITHUB_PAGES === 'true' ? '/vibes/manifest.json' : '/manifest.json'
+const iconBasePath = process.env.GITHUB_PAGES === 'true' ? '/vibes' : ''
+
 export const metadata: Metadata = {
   title: 'Vibes - Feel the Energy',
   description: 'A simple and beautiful website showcasing good vibes',
-  manifest: '/manifest.json',
+  // Only include manifest for non-GitHub Pages builds
+  ...(process.env.GITHUB_PAGES !== 'true' && { manifest: manifestPath }),
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: 'Vibes',
   },
   icons: {
-    icon: '/icons/icon-192x192.svg',
-    apple: '/icons/icon-192x192.svg',
+    icon: `${iconBasePath}/icons/icon-192x192.svg`,
+    apple: `${iconBasePath}/icons/icon-192x192.svg`,
   },
 }
 
@@ -44,14 +49,17 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Vibes" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+        <meta name="msapplication-config" content={`${iconBasePath}/icons/browserconfig.xml`} />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-tap-highlight" content="no" />
         
-        <link rel="apple-touch-icon" href="/icons/icon-152x152.svg" />
-        <link rel="icon" type="image/svg+xml" href="/icons/icon-192x192.svg" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="shortcut icon" href="/icons/icon-192x192.svg" />
+        <link rel="apple-touch-icon" href={`${iconBasePath}/icons/icon-152x152.svg`} />
+        <link rel="icon" type="image/svg+xml" href={`${iconBasePath}/icons/icon-192x192.svg`} />
+        {/* Only include manifest link for non-GitHub Pages builds */}
+        {process.env.GITHUB_PAGES !== 'true' && (
+          <link rel="manifest" href={manifestPath} />
+        )}
+        <link rel="shortcut icon" href={`${iconBasePath}/icons/icon-192x192.svg`} />
       </head>
       <body>
         <TouchGestures />
