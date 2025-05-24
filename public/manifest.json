@@ -1,11 +1,11 @@
 {
-  "name": "Vibes - Minimal PWA",
-  "short_name": "Vibes",
-  "description": "A minimal, bi-color PWA with good vibes",
+  "name": "Taboo Game - PWA",
+  "short_name": "Taboo",
+  "description": "A minimal taboo word guessing game PWA",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#2563eb",
   "orientation": "any",
   "scope": "/",
   "icons": [
@@ -58,6 +58,6 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["lifestyle"],
+  "categories": ["games", "entertainment"],
   "lang": "en"
 } 
