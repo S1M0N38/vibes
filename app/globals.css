@@ -10,6 +10,7 @@ html,
 body {
   max-width: 100vw;
   max-height: 100vh;
+  max-height: 100dvh;
   overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
@@ -19,6 +20,10 @@ body {
   background: #fff;
   margin: 0;
   padding: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 :root {
@@ -49,7 +54,10 @@ body {
   align-items: center;
   padding: 1rem;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
 
 .container {
@@ -267,23 +275,34 @@ body {
 /* Mobile optimizations */
 @media (max-width: 640px) {
   .main {
-    padding: 0.5rem;
+    padding: 0.75rem;
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
     height: 100vh;
+    height: 100dvh;
+    /* Ensure we use all available space */
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   }
   
   .container {
-    gap: 0.5rem;
+    gap: 0.75rem;
     height: 100%;
+    max-width: none; /* Use full width on mobile */
+    width: 100%;
   }
   
   .score {
-    font-size: 1.5rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 0.5rem;
+    gap: 0.5rem;
   }
   
   .score svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
   
   .title {
@@ -291,13 +310,17 @@ body {
   }
   
   .guess-word {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
   }
   
   .card {
     padding: 1rem;
     flex: 1;
+    width: 100%; /* Use full width */
+    max-width: none;
+    /* Ensure card doesn't get too small */
+    min-height: 200px;
   }
   
   .taboo-section {
@@ -306,24 +329,101 @@ body {
   
   .taboo-word {
     padding: 0.5rem 0.75rem;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   
   .button {
-    padding: 1rem 1rem;
+    padding: 0.875rem 0.75rem;
     font-size: 0.9rem;
+    /* Ensure buttons are properly sized */
+    min-height: 48px; /* Minimum touch target size */
+    flex: 1;
+  }
+  
+  .button svg {
+    width: 24px;
+    height: 24px;
   }
   
   .game-header {
     flex-shrink: 0;
+    width: 100%; /* Use full width */
+    max-width: none;
   }
   
   .game-controls {
     flex-shrink: 0;
+    width: 100%; /* Use full width */
+    max-width: none;
+    gap: 0.5rem;
+    /* Ensure controls are always visible */
+    margin-bottom: 0;
   }
   
   .score-board {
     justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
+
+/* Additional optimizations for very small screens */
+@media (max-width: 480px) {
+  .main {
+    padding: 0.5rem;
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+  }
+  
+  .container {
+    gap: 0.5rem;
+  }
+  
+  .score {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.3rem;
+    gap: 0.3rem;
+  }
+  
+  .score svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .guess-word {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+    min-height: 180px;
+  }
+  
+  .taboo-word {
+    padding: 0.4rem 0.6rem;
+    font-size: 1.1rem;
+  }
+  
+  .button {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+  
+  .button svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .game-controls {
+    gap: 0.4rem;
+  }
+  
+  .score-board {
+    gap: 0.4rem;
   }
 }
 
