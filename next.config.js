@@ -1,3 +1,10 @@
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  skipWaiting: true,
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
@@ -5,8 +12,10 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/vibes' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/vibes/' : '',
+  // Only use basePath and assetPrefix for GitHub Pages deployment
+  // For local testing, these should be empty
+  basePath: process.env.GITHUB_PAGES === 'true' ? '/vibes' : '',
+  assetPrefix: process.env.GITHUB_PAGES === 'true' ? '/vibes/' : '',
 }
 
-module.exports = nextConfig 
+module.exports = withPWA(nextConfig) 
