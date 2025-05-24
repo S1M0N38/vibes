@@ -1,0 +1,69 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# React Component Standards
+
+## Component Structure
+- Use functional components with TypeScript
+- Define interfaces for all props at the top of the file
+- Use descriptive names for components and props
+- Keep components focused and single-purpose
+
+## Props and Types
+```tsx
+interface ComponentNameProps {
+  title: string
+  description?: string
+  onClick?: () => void
+  children?: React.ReactNode
+}
+```
+
+## Component Template
+```tsx
+import React from 'react'
+
+interface ComponentNameProps {
+  // Define props here
+}
+
+export default function ComponentName({ 
+  prop1, 
+  prop2 
+}: ComponentNameProps) {
+  // Component logic here
+  
+  return (
+    <div>
+      {/* JSX content */}
+    </div>
+  )
+}
+```
+
+## Best Practices
+- Use semantic HTML elements when possible
+- Implement proper accessibility attributes
+- Handle loading and error states appropriately
+- Use consistent naming conventions:
+  - PascalCase for component names
+  - camelCase for props and variables
+  - kebab-case for CSS classes
+
+## State Management
+- Use useState for local component state
+- Consider useReducer for complex state logic
+- Keep state as close to where it's used as possible
+- Lift state up only when necessary
+
+## Event Handling
+- Use descriptive function names (handleClick, handleSubmit)
+- Prevent default behavior when necessary
+- Handle errors gracefully
+
+## Styling
+- Use consistent class naming conventions
+- Keep styles close to components
+- Consider component composition over complex prop drilling

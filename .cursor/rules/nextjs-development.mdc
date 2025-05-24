@@ -1,0 +1,55 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Next.js App Router Development Standards
+
+## File Organization
+- Use the `app/` directory for all routes and layouts
+- Keep components in `app/components/` directory
+- Each route should have its own directory with appropriate files:
+  - `page.tsx` for the main route component
+  - `layout.tsx` for shared layouts
+  - `loading.tsx` for loading states
+  - `error.tsx` for error boundaries
+
+## Component Standards
+- Use TypeScript for all components
+- Export components as default exports from pages
+- Use proper TypeScript interfaces for props
+- Include proper Metadata exports for SEO
+
+## Styling Approach
+- Use CSS modules or styled-components for component-specific styles
+- Global styles go in `app/globals.css`
+- Maintain consistent naming conventions
+
+## Performance Best Practices
+- Use Server Components by default
+- Add 'use client' directive only when client-side features are needed
+- Optimize images with next/image component
+- Implement proper loading states and error boundaries
+
+## Example Component Structure
+```tsx
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Page Title',
+  description: 'Page description',
+}
+
+interface PageProps {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default function Page({ params, searchParams }: PageProps) {
+  return (
+    <div>
+      <h1>Page Content</h1>
+    </div>
+  )
+}
+```

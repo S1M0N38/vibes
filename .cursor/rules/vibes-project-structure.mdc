@@ -1,0 +1,61 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Vibes Project Structure & Conventions
+
+## Project Overview
+The Vibes project is a Next.js 14 application using the App Router, TypeScript, and focused on showcasing "good vibes" with a clean, simple interface.
+
+## Directory Structure
+```
+vibes/
+├── app/
+│   ├── layout.tsx          # Root layout with Navigation
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Global styles
+│   ├── components/         # Shared components
+│   │   └── Navigation.tsx  # Main navigation component
+│   └── about/              # About page route
+├── .cursor/rules/          # Cursor AI rules
+└── package.json            # Dependencies and scripts
+```
+
+## Key Project Files
+- [app/layout.tsx](mdc:app/layout.tsx) - Main layout with navigation and padding
+- [app/page.tsx](mdc:app/page.tsx) - Homepage content
+- [app/globals.css](mdc:app/globals.css) - Global styling
+- [package.json](mdc:package.json) - Project configuration
+
+## Development Standards
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: CSS (no framework dependencies currently)
+- **Components**: Functional components with proper TypeScript interfaces
+
+## Metadata Standards
+All pages should include proper metadata for SEO:
+```tsx
+export const metadata: Metadata = {
+  title: 'Page Title - Vibes',
+  description: 'Descriptive text about the page content',
+}
+```
+
+## Navigation Structure
+- Main navigation is handled by the Navigation component
+- Layout includes 80px top padding to account for fixed navigation
+- Keep navigation consistent across all pages
+
+## Styling Approach
+- Global styles in `app/globals.css`
+- Inline styles used sparingly for layout adjustments
+- Focus on clean, minimal design that reflects "good vibes"
+
+## Development Commands
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run export` - Build and export static site
