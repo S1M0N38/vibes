@@ -13,6 +13,11 @@ body {
   color: #333;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  /* Touch optimization */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .container {
@@ -51,12 +56,26 @@ body {
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
+  /* Touch optimization */
+  min-height: 44px; /* Apple's recommended minimum touch target */
+  min-width: 44px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.cta-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+/* Replace hover with touch-friendly interactions */
+.cta-button:active {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0.98);
+}
+
+/* Keep hover for desktop, but make it subtle */
+@media (hover: hover) {
+  .cta-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
 }
 
 .features {
@@ -86,10 +105,20 @@ body {
   color: white;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-.feature-card:hover {
-  transform: translateY(-10px);
+/* Touch-friendly interactions for cards */
+.feature-card:active {
+  transform: scale(0.98);
+}
+
+/* Keep hover for desktop only */
+@media (hover: hover) {
+  .feature-card:hover {
+    transform: translateY(-10px);
+  }
 }
 
 .feature-card h3 {
@@ -108,9 +137,24 @@ body {
   padding: 40px 0;
 }
 
-/* Navigation hover effects */
-nav a:hover {
-  opacity: 0.8 !important;
+/* Touch-friendly navigation */
+nav a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+nav a:active {
+  opacity: 0.6 !important;
+  transform: scale(0.95);
+}
+
+/* Keep hover for desktop only */
+@media (hover: hover) {
+  nav a:hover {
+    opacity: 0.8 !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -137,6 +181,8 @@ nav a:hover {
   
   .feature-card {
     padding: 30px 20px;
+    /* Enhanced touch targets on mobile */
+    min-height: 200px;
   }
   
   /* Navigation responsive */
@@ -150,7 +196,59 @@ nav a:hover {
   }
   
   .cta-button {
-    padding: 12px 24px;
-    font-size: 0.9rem;
+    padding: 16px 32px; /* Larger touch targets */
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  
+  /* Better spacing for mobile */
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* PWA full-screen optimizations */
+@media (display-mode: fullscreen) {
+  /* Add safe area insets for devices with notches */
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Adjust navigation for full-screen */
+  nav {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+}
+
+/* Orientation-specific optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    padding: 40px 0;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .features {
+    padding: 60px 0;
+  }
+}
+
+/* Install button mobile optimizations */
+.install-button:active {
+  transform: scale(0.95) !important;
+}
+
+@media (max-width: 768px) {
+  .install-button {
+    bottom: max(16px, env(safe-area-inset-bottom)) !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
+    padding: 14px 20px !important;
+    font-size: 14px !important;
+    min-height: 44px !important;
   }
 } 

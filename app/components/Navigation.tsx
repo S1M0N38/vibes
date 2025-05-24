@@ -13,7 +13,11 @@ export default function Navigation() {
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
       padding: '1rem 0',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+      borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+      // PWA safe area support
+      paddingTop: 'max(1rem, env(safe-area-inset-top))',
+      paddingLeft: 'env(safe-area-inset-left)',
+      paddingRight: 'env(safe-area-inset-right)',
     }}>
       <div className="container" style={{
         display: 'flex',
@@ -24,19 +28,33 @@ export default function Navigation() {
           fontSize: '1.5rem',
           fontWeight: 'bold',
           color: 'white',
-          textDecoration: 'none'
+          textDecoration: 'none',
+          // Touch optimization
+          minHeight: '44px',
+          display: 'flex',
+          alignItems: 'center',
+          userSelect: 'none',
         }}>
           Vibes ✨
         </Link>
         <div style={{
           display: 'flex',
-          gap: '2rem'
+          gap: '1rem' // Reduced gap for mobile
         }}>
           <Link href="/" style={{
             color: 'white',
             textDecoration: 'none',
             fontWeight: '500',
-            transition: 'opacity 0.3s ease'
+            transition: 'all 0.3s ease',
+            // Touch optimization
+            minHeight: '44px',
+            minWidth: '44px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            userSelect: 'none',
           }}>
             Home
           </Link>
@@ -44,7 +62,16 @@ export default function Navigation() {
             color: 'white',
             textDecoration: 'none',
             fontWeight: '500',
-            transition: 'opacity 0.3s ease'
+            transition: 'all 0.3s ease',
+            // Touch optimization
+            minHeight: '44px',
+            minWidth: '44px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            userSelect: 'none',
           }}>
             About
           </Link>
