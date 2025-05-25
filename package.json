@@ -2,14 +2,11 @@
   "name": "vibes-minimal-app",
   "version": "0.1.0",
   "private": true,
-  "description": "A minimal, bi-color web app with good vibes",
+  "description": "A minimal taboo card game",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "serve": "npx serve@latest out",
-    "test-local": "npm run build && npm run serve"
+    "start": "next start"
   },
   "dependencies": {
     "lucide-react": "^0.511.0",
