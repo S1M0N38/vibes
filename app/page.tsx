@@ -20,7 +20,7 @@ export default function TabooGame() {
   useEffect(() => {
     const loadCards = async () => {
       try {
-        const response = await fetch('/data/cards.eng.jsonl')
+        const response = await fetch('./data/cards.eng.jsonl')
         if (!response.ok) {
           throw new Error(`Failed to fetch cards: ${response.status}`)
         }

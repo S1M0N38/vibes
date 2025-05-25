@@ -5,6 +5,8 @@ const nextConfig = {
   },
   output: 'export',
   trailingSlash: true,
+  basePath: '/vibes',
+  assetPrefix: '/vibes/',
 }
 
 module.exports = nextConfig 
