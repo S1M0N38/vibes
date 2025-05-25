@@ -70,9 +70,11 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.reload-button:hover {
-  background: #000;
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  .reload-button:hover {
+    background: #000;
+    color: #fff;
+  }
 }
 
 .reload-button:active {
@@ -179,9 +181,11 @@ body {
   flex-shrink: 0;
 }
 
-.action-button:hover {
-  background: #000;
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  .action-button:hover {
+    background: #000;
+    color: #fff;
+  }
 }
 
 .action-button:active {
