@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Check, X, SkipForward, RotateCcw } from 'lucide-react'
 
 interface TabooCard {
   guess_word: string
   taboo_words: string[]
-  language: string
 }
 
 export default function TabooGame() {
@@ -16,30 +15,12 @@ export default function TabooGame() {
   const [errors, setErrors] = useState(0)
   const [skipped, setSkipped] = useState(0)
   const [loading, setLoading] = useState(true)
-  
-  // Pull-to-refresh state
-  const [pullDistance, setPullDistance] = useState(0)
-  const [isPulling, setIsPulling] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const touchStartY = useRef(0)
-  const touchCurrentY = useRef(0)
-  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Pull-to-refresh constants
-  const PULL_THRESHOLD = 80
-  const MAX_PULL_DISTANCE = 120
-
-  // Load cards from data and start immediately
+  // Load cards from data
   useEffect(() => {
     const loadCards = async () => {
       try {
-        // Handle base path for static exports (like GitHub Pages)
-        const basePath = process.env.NODE_ENV === 'production' 
-          ? (process.env.NEXT_PUBLIC_BASE_PATH || '') 
-          : ''
-        const dataUrl = `${basePath}/data/cards.eng.jsonl`
-        
-        const response = await fetch(dataUrl)
+        const response = await fetch('/data/cards.eng.jsonl')
         if (!response.ok) {
           throw new Error(`Failed to fetch cards: ${response.status}`)
         }
@@ -60,11 +41,9 @@ export default function TabooGame() {
           
         setCards(cardData)
         
-        // Start with a random card immediately
-        if (cardData.length > 0) {
-          const randomIndex = Math.floor(Math.random() * cardData.length)
-          setCurrentCard(cardData[randomIndex])
-        }
+        // Start with a random card
+        const randomIndex = Math.floor(Math.random() * cardData.length)
+        setCurrentCard(cardData[randomIndex])
         setLoading(false)
       } catch (error) {
         console.error('Failed to load cards:', error)
@@ -73,75 +52,6 @@ export default function TabooGame() {
     }
     loadCards()
   }, [])
-
-  // Pull-to-refresh touch handlers
-  useEffect(() => {
-    const handleTouchStart = (e: TouchEvent) => {
-      if (isRefreshing) return
-      touchStartY.current = e.touches[0].clientY
-      touchCurrentY.current = e.touches[0].clientY
-    }
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isRefreshing) return
-      
-      touchCurrentY.current = e.touches[0].clientY
-      const deltaY = touchCurrentY.current - touchStartY.current
-
-      // Only allow pull-to-refresh when starting from near the top and pulling down
-      if (touchStartY.current > 50 || deltaY <= 0) {
-        if (isPulling) {
-          setIsPulling(false)
-          setPullDistance(0)
-        }
-        return
-      }
-
-      // Calculate pull distance with resistance
-      const pullDistance = Math.min(deltaY * 0.5, MAX_PULL_DISTANCE)
-      
-      if (pullDistance > 10) {
-        if (!isPulling) setIsPulling(true)
-        setPullDistance(pullDistance)
-        
-        // Prevent default scrolling behavior during pull
-        e.preventDefault()
-      }
-    }
-
-    const handleTouchEnd = () => {
-      if (isRefreshing) return
-      
-      if (isPulling && pullDistance >= PULL_THRESHOLD) {
-        // Trigger refresh
-        setIsRefreshing(true)
-        
-        // Add a small delay for UX, then reload
-        setTimeout(() => {
-          window.location.reload()
-        }, 300)
-      } else {
-        // Reset pull state
-        setIsPulling(false)
-        setPullDistance(0)
-      }
-    }
-
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener('touchstart', handleTouchStart, { passive: true })
-      container.addEventListener('touchmove', handleTouchMove, { passive: false })
-      container.addEventListener('touchend', handleTouchEnd, { passive: true })
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('touchstart', handleTouchStart)
-        container.removeEventListener('touchmove', handleTouchMove)
-        container.removeEventListener('touchend', handleTouchEnd)
-      }
-    }
-  }, [isPulling, pullDistance, isRefreshing])
 
   const getRandomCard = () => {
     if (cards.length === 0) return null
@@ -168,6 +78,13 @@ export default function TabooGame() {
     nextCard()
   }
 
+  const resetGame = () => {
+    setScore(0)
+    setErrors(0)
+    setSkipped(0)
+    nextCard()
+  }
+
   if (loading) {
     return (
       <main className="main">
@@ -191,71 +108,55 @@ export default function TabooGame() {
 
   return (
     <main className="main">
-      {/* Pull-to-refresh indicator */}
-      {(isPulling || isRefreshing) && (
-        <div 
-          className="pull-refresh-indicator"
-          style={{
-            transform: `translateY(${Math.max(0, pullDistance - 20)}px)`,
-            opacity: Math.min(pullDistance / PULL_THRESHOLD, 1)
-          }}
-        >
-          <div className={`pull-icon ${isRefreshing ? 'refreshing' : ''}`}>
+      <div className="container">
+        {/* Reload Button */}
+        <div className="reload-section">
+          <button className="reload-button" onClick={resetGame} title="Reset game">
             <RotateCcw size={24} />
-          </div>
-          <div className="pull-text">
-            {isRefreshing ? 'Refreshing...' : pullDistance >= PULL_THRESHOLD ? 'Release to refresh' : 'Pull to refresh'}
-          </div>
+          </button>
         </div>
-      )}
 
-      <div 
-        ref={containerRef}
-        className="container"
-        style={{
-          transform: isPulling ? `translateY(${Math.min(pullDistance * 0.3, 30)}px)` : 'translateY(0)',
-          transition: isPulling ? 'none' : 'transform 0.3s ease-out'
-        }}
-      >
-        <div className="game-header">
-          <div className="score-board">
-            <span className="score">
-              <X size={36} /> {errors}
-            </span>
-            <span className="score">
-              <Check size={36} /> {score}
-            </span>
-            <span className="score">
-              <SkipForward size={36} /> {skipped}
-            </span>
+        {/* Counters */}
+        <div className="counters">
+          <div className="counter">
+            <X size={20} />
+            <span className="counter-value">{errors}</span>
+          </div>
+          <div className="counter">
+            <Check size={20} />
+            <span className="counter-value">{score}</span>
+          </div>
+          <div className="counter">
+            <SkipForward size={20} />
+            <span className="counter-value">{skipped}</span>
           </div>
         </div>
 
+        {/* Card */}
         <div className="card">
           <div className="guess-word">
             {currentCard.guess_word.toUpperCase()}
           </div>
-          
-          <div className="taboo-section">
-            <div className="taboo-words">
-              {currentCard.taboo_words.map((word, index) => (
-                <div key={index} className="taboo-word">
-                  {word.toUpperCase()}
-                </div>
-              ))}
-            </div>
+          <div className="divider"></div>
+          <div className="taboo-words">
+            {currentCard.taboo_words.map((word, index) => (
+              <div key={index} className="taboo-word">
+                {word.toUpperCase()}
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="game-controls">
-          <button className="button error" onClick={markError} title="Error">
-            <X size={36} />
+        {/* Action Buttons */}
+        <div className="action-buttons">
+          <button className="action-button wrong" onClick={markError} title="Wrong">
+            <X size={24} />
           </button>
-          <button className="button correct" onClick={markCorrect} title="Correct">
-            <Check size={36} />
+          <button className="action-button correct" onClick={markCorrect} title="Correct">
+            <Check size={24} />
           </button>
-          <button className="button skip" onClick={skipCard} title="Skip">
-            <SkipForward size={36} />
+          <button className="action-button skip" onClick={skipCard} title="Skip">
+            <SkipForward size={24} />
           </button>
         </div>
       </div>
