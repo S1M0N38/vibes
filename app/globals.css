@@ -9,10 +9,9 @@
 html,
 body {
   max-width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
@@ -21,44 +20,17 @@ body {
   background: #fff;
   margin: 0;
   padding: 0;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-
-:root {
-  --foreground: #000;
-  --background: #fff;
-  --border: #000;
-  --card-bg: #fff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #fff;
-    --background: #000;
-    --border: #fff;
-    --card-bg: #000;
-  }
-  
-  body {
-    color: #fff;
-    background: #000;
-  }
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 1rem;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-y: auto;
-  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-  min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .container {
@@ -66,477 +38,224 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
-  min-height: 100%;
-  gap: 2rem;
+  height: 100%;
+  gap: 1.5rem;
+  padding: 1rem 0;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  color: var(--foreground);
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: var(--foreground);
-  text-align: center;
-  line-height: 1.5;
-}
-
-.game-info {
-  text-align: center;
-  gap: 0.5rem;
+/* Reload Button */
+.reload-section {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.game-info p {
-  font-size: 1rem;
-  color: var(--foreground);
-}
-
-/* Minimal outline buttons */
-.button {
-  background: transparent;
-  color: var(--foreground);
-  border: 2px solid var(--border);
-  border-radius: 0.25rem;
-  padding: 1.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+.reload-button {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 12px;
   cursor: pointer;
-  transition: all 0.15s ease;
-  font-family: inherit;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  min-height: 64px; /* Minimum touch target size */
-  /* Prevent text selection on touch */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  /* Prevent touch callout on iOS */
-  -webkit-touch-callout: none;
-  /* Ensure touch taps don't stick */
+  width: 48px;
+  height: 48px;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Only apply hover effects on devices that actually support hovering */
-@media (hover: hover) and (pointer: fine) {
-  .button:hover {
-    background: var(--foreground);
-    color: var(--background);
-  }
+.reload-button:hover {
+  background: #000;
+  color: #fff;
 }
 
-/* Touch-specific active state that resets quickly */
-.button:active {
-  transform: scale(0.98);
-  background: var(--foreground);
-  color: var(--background);
+.reload-button:active {
+  transform: scale(0.95);
 }
 
-/* Reset any stuck states on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .button:hover {
-    background: transparent;
-    color: var(--foreground);
-  }
-}
-
-.button.primary {
-  font-size: 1.1rem;
-  padding: 1rem 2rem;
-}
-
-.button.secondary {
-  color: var(--foreground);
-}
-
-/* Only apply hover effects on devices that actually support hovering */
-@media (hover: hover) and (pointer: fine) {
-  .button.secondary:hover {
-    background: var(--foreground);
-    color: var(--background);
-  }
-}
-
-/* Reset any stuck states for secondary buttons on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .button.secondary:hover {
-    background: transparent;
-    color: var(--foreground);
-  }
-}
-
-.button.small {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-}
-
-/* Icon-only buttons */
-.button.icon-only {
-  padding: 0.75rem;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button.correct {
-  flex: 1;
-}
-
-.button.error {
-  flex: 1;
-}
-
-.button.skip {
-  flex: 1;
-}
-
-/* Icon alignment and spacing */
-.button svg {
-  flex-shrink: 0;
-}
-
-.button:not(.icon-only) svg {
-  margin-right: 0.5rem;
-}
-
-.score {
-  font-weight: 600;
-  font-size: 2rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.25rem;
-  background: transparent;
-  color: var(--foreground);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex: 1;
-}
-
-.score svg {
-  width: 36px;
-  height: 36px;
-}
-
-/* Game Interface */
-.game-header {
+/* Counters */
+.counters {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 85%;
-  max-width: 400px;
-}
-
-.score-board {
-  display: flex;
-  gap: 0.75rem;
+  gap: 2rem;
   width: 100%;
 }
 
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.counter-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Card */
 .card {
-  background: var(--card-bg);
-  border: 2px solid var(--border);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  width: 85%;
-  max-width: 400px;
-  text-align: center;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: hidden;
-  min-height: 0; /* Allow shrinking */
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  gap: 1.5rem;
 }
 
 .guess-word {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--foreground);
-  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #000;
   letter-spacing: 0.05em;
 }
 
-.taboo-section {
-  border-top: 2px solid var(--border);
-  padding-top: 1rem;
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0; /* Allow shrinking when needed */
-}
-
-.taboo-header {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 1rem;
-  letter-spacing: 0.05em;
+.divider {
+  width: 100%;
+  height: 2px;
+  background: #000;
 }
 
 .taboo-words {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.taboo-word {
-  background: var(--background);
-  color: var(--foreground);
-  padding: 0.75rem 1rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-  font-size: 1.6rem;
-  letter-spacing: 0.025em;
-}
-
-.game-controls {
-  display: flex;
-  gap: 0.75rem;
-  width: 85%;
-  max-width: 400px;
-}
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .main {
-    padding: 0.75rem;
-    padding-top: max(0.75rem, env(safe-area-inset-top));
-    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-    padding-left: max(0.75rem, env(safe-area-inset-left));
-    padding-right: max(0.75rem, env(safe-area-inset-right));
-    min-height: 100vh;
-    min-height: 100dvh;
-    /* Ensure we use all available space */
-    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-  }
-  
-  .container {
-    gap: 1.5rem;
-    min-height: 100%;
-    max-width: none; /* Use full width on mobile */
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .score {
-    font-size: 1.3rem;
-    padding: 0.5rem 0.5rem;
-    gap: 0.5rem;
-  }
-  
-  .score svg {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .title {
-    font-size: 1.8rem;
-  }
-  
-  .guess-word {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-  }
-  
-  .card {
-    padding: 1rem;
-    flex: 1;
-    width: 100%; /* Use full width */
-    max-width: none;
-    /* Allow card to fill available space */
-    min-height: 0;
-  }
-  
-  .taboo-section {
-    padding-top: 0.75rem;
-  }
-  
-  .taboo-word {
-    padding: 0.5rem 0.75rem;
-    font-size: 1.2rem;
-  }
-  
-  .button {
-    padding: 1.25rem 0.75rem;
-    font-size: 0.9rem;
-    /* Ensure buttons are properly sized */
-    min-height: 60px; /* Minimum touch target size */
-    flex: 1;
-  }
-  
-  .button svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .game-header {
-    flex-shrink: 0;
-    width: 100%; /* Use full width */
-    max-width: none;
-  }
-  
-  .game-controls {
-    flex-shrink: 0;
-    width: 100%; /* Use full width */
-    max-width: none;
-    gap: 0.5rem;
-    /* Ensure controls are always visible */
-    margin-bottom: 0;
-  }
-  
-  .score-board {
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-  }
-}
-
-/* Additional optimizations for very small screens */
-@media (max-width: 480px) {
-  .main {
-    padding: 0.5rem;
-    padding-top: max(0.5rem, env(safe-area-inset-top));
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-    padding-left: max(0.5rem, env(safe-area-inset-left));
-    padding-right: max(0.5rem, env(safe-area-inset-right));
-  }
-  
-  .container {
-    gap: 0.5rem;
-    justify-content: space-between;
-  }
-  
-  .score {
-    font-size: 1.1rem;
-    padding: 0.4rem 0.3rem;
-    gap: 0.3rem;
-  }
-  
-  .score svg {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .guess-word {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .card {
-    padding: 0.75rem;
-    min-height: 0;
-  }
-  
-  .taboo-word {
-    padding: 0.4rem 0.6rem;
-    font-size: 1.1rem;
-  }
-  
-  .button {
-    padding: 1rem 0.5rem;
-    font-size: 0.85rem;
-    min-height: 56px;
-  }
-  
-  .button svg {
-    width: 22px;
-    height: 22px;
-  }
-  
-  .game-controls {
-    gap: 0.4rem;
-  }
-  
-  .score-board {
-    gap: 0.4rem;
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .button {
-    transition: none;
-  }
-  
-  .button:hover {
-    transform: none;
-  }
-}
-
-/* Focus styles */
-.button:focus {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
-}
-
-.button:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* Pull-to-refresh indicator */
-.pull-refresh-indicator {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  background: var(--background);
-  border: 2px solid var(--border);
-  border-radius: 0 0 0.5rem 0.5rem;
-  border-top: none;
-  color: var(--foreground);
-  min-width: 140px;
-  transition: opacity 0.3s ease;
+  gap: 1rem;
+  width: 100%;
 }
 
-.pull-icon {
-  margin-bottom: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.pull-icon.refreshing {
-  animation: spin 1s linear infinite;
-}
-
-.pull-text {
-  font-size: 0.9rem;
+.taboo-word {
+  font-size: 1.2rem;
   font-weight: 500;
   text-align: center;
-  white-space: nowrap;
+  color: #000;
+  letter-spacing: 0.03em;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-/* Ensure pull-to-refresh works on mobile */
-@media (max-width: 640px) {
-  .pull-refresh-indicator {
-    padding: 0.75rem;
-    min-width: 120px;
+.action-button {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.action-button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.action-button:active {
+  transform: scale(0.95);
+}
+
+/* Loading states */
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #000;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .container {
+    gap: 1rem;
+    padding: 0.5rem 0;
   }
   
-  .pull-text {
-    font-size: 0.8rem;
+  .guess-word {
+    font-size: 1.8rem;
   }
+  
+  .taboo-word {
+    font-size: 1.1rem;
+  }
+  
+  .counters {
+    gap: 1.5rem;
+  }
+  
+  .card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .action-button {
+    width: 56px;
+    height: 56px;
+    padding: 14px;
+  }
+  
+  .reload-button {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .counters {
+    gap: 1rem;
+  }
+  
+  .action-buttons {
+    gap: 0.8rem;
+  }
+  
+  .action-button {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Focus states */
+.reload-button:focus,
+.action-button:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.reload-button:focus:not(:focus-visible),
+.action-button:focus:not(:focus-visible) {
+  outline: none;
 } 
