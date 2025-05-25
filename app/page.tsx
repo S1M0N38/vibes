@@ -132,6 +132,9 @@ export default function TabooGame() {
           </div>
         </div>
 
+        {/* Flex spacer */}
+        <div className="flex-spacer"></div>
+
         {/* Card */}
         <div className="card">
           <div className="guess-word">
@@ -146,6 +149,9 @@ export default function TabooGame() {
             ))}
           </div>
         </div>
+
+        {/* Flex spacer */}
+        <div className="flex-spacer"></div>
 
         {/* Action Buttons */}
         <div className="action-buttons">
